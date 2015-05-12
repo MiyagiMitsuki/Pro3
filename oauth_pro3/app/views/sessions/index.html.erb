@@ -1,0 +1,92 @@
+<style>
+#left_frame {
+	background-color: #c0ffc0;
+	height:100%;
+	left:0;
+	margin:0 ;
+	padding:0;
+	position:fixed;
+	_position:absolute;
+	top:0;
+	width:300px;
+}
+
+#right_frame {
+	height:100%;
+	margin:0 0 0 300px;
+	word-wrap: break-word;
+	_overflow:auto;
+	padding:0;
+	width:580px;
+}
+
+textarea{
+	height:80px;
+    	width:270px;
+   	margin:0 0 0 0px;
+	resize:none;
+}
+
+dl.account dt {
+	margin-left: 0.75em;
+	float: left;
+}
+
+dl.account dd {
+	margin-left: 4em;
+}
+
+dl.tweet dt {
+	margin-top: 0.2em;
+	margin-left: 0.5em;
+	float: left;
+}
+
+dl.tweet dd {
+	  margin-left: 4em;
+}
+
+.user {
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+
+</style>
+
+<div id="user_nav">
+  <% if current_user %>
+  <div id="left_frame">
+  	<dl class="account">
+  	<dt>
+	<%= image_tag current_user.image %>
+	</dt>
+	<dd>
+	<p class="user">
+	<b>
+	<font size="4"><%= current_user.name %></font><br>
+	</b>
+	<font size="3" color="#9A9A9A">@<%= current_user.nickname %></font>
+	</p>
+	</dd>
+	<dt>
+	<%= form_for Tweet.new, remote: true do |f| %>
+	<%= f.text_area :content, :maxlength => "140" %>
+	<div style="text-align: right;">
+	<%= f.submit "reset" , type: "reset"%>
+	<%= f.submit "tweet"%>
+	</div>
+	<% end %>
+	<%= link_to "ログアウト" ,logout_path %>
+	</dt>
+	</dl>
+</div>
+
+<div id="right_frame">
+	<%= render partial: "sessions/sessions", collections: @tweets %>
+</div>
+
+   <% else %>
+      <%= link_to "ログイン","/auth/twitter" %>
+   <% end %>
+</div>

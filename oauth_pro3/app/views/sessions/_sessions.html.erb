@@ -1,0 +1,19 @@
+<% (@tweets || []).each do |tweet| %>
+	        	<dl class="tweet">
+	        	<dt>
+	        	<a href=https://twitter.com/<%= tweet.userid %>><%= image_tag tweet.userimage %></a>
+	        	</dt>
+	        	<dd>
+	        	<p style="margin-bottom: -1em">
+	        	<b><font size="3"><%= tweet.name %></font></b>
+		<font size="2" color="#9A9A9A">@<%= tweet.userid %></font>
+		</p>
+		<%= simple_format(h(tweet.content)) %>
+		<p style="margin-top: -0.7em">
+		<font size="2" color="#9A9A9A"><%= tweet.created_at.to_time %></font>
+		</p>
+		</dd>
+		<hr>
+		</dl>
+<% end %>
+
